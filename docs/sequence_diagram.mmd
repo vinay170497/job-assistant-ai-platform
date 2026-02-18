@@ -1,0 +1,31 @@
+sequenceDiagram
+
+    participant U as User
+    participant API as FastAPI
+    participant G as LangGraph
+    participant L as Local LLM
+    participant BM as BM25
+    participant HF as HuggingFace API
+    participant DB as SQLite Logger
+
+    U->>API: Send Request
+    API->>G: Initialize State
+    G->>L: Intent Classification
+    L-->>G: Intent Result
+
+    G->>BM: Retrieve Top Documents
+    BM-->>G: Top-K Results
+
+    alt High Confidence
+        G->>L: Local Fusion
+        L-->>G: Answer
+    else Low Confidence
+        G->>HF: Embedding + Rerank
+        HF-->>G: Ranked Docs
+        G->>HF: Deep Reasoning
+        HF-->>G: Final Answer
+    end
+
+    G->>DB: Log State Transition
+    G-->>API: Final Response
+    API-->>U: Return Output
