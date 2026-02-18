@@ -1,0 +1,2 @@
+# Ignore SQLite trace database
+data/*.sqlite
