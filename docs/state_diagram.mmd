@@ -1,25 +1,32 @@
 stateDiagram-v2
+    direction TB
 
     [*] --> INITIALIZED
     INITIALIZED --> INTENT_CLASSIFIED
 
-    INTENT_CLASSIFIED --> JOB_FLOW
-    INTENT_CLASSIFIED --> RESUME_FLOW
-    INTENT_CLASSIFIED --> RAG_FLOW
+    state "Processing Layer" as Processing {
+        INTENT_CLASSIFIED --> JOB_FLOW
+        INTENT_CLASSIFIED --> RESUME_FLOW
+        INTENT_CLASSIFIED --> RAG_FLOW
 
-    JOB_FLOW --> VALIDATION
-    RESUME_FLOW --> VALIDATION
-    RAG_FLOW --> RETRIEVAL
+        JOB_FLOW --> VALIDATION
+        RESUME_FLOW --> VALIDATION
+        
+        state "Knowledge Retrieval" as RAG {
+            RAG_FLOW --> RETRIEVAL
+            RETRIEVAL --> LOCAL_FUSION: High Confidence
+            RETRIEVAL --> SEMANTIC_FALLBACK: Low Confidence
+            SEMANTIC_FALLBACK --> HF_REASONING
+        }
+    }
 
-    RETRIEVAL --> LOCAL_FUSION
-    RETRIEVAL --> SEMANTIC_FALLBACK
-
-    SEMANTIC_FALLBACK --> HF_REASONING
     LOCAL_FUSION --> VALIDATION
     HF_REASONING --> VALIDATION
 
-    VALIDATION --> END_SUCCESS
-    VALIDATION --> END_FAILURE
+    state "Terminal States" as Terminal {
+        VALIDATION --> END_SUCCESS: Success
+        VALIDATION --> END_FAILURE: Failure
+    }
 
     END_SUCCESS --> [*]
     END_FAILURE --> [*]

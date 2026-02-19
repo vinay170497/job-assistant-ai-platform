@@ -31,40 +31,38 @@ Architecture Overview
 
 flowchart TD
 
-    USER[User Request]
-        ↓
-    API[FastAPI Layer]
-        ↓
-    GRAPH[LangGraph StateGraph Orchestrator]
+    USER["User Request"]
+    API["FastAPI Layer"]
+    GRAPH["LangGraph StateGraph Orchestrator"]
 
-    GRAPH → INTENT[Intent Classifier (Local GPU LLM)]
-    INTENT → ROUTER{Deterministic Routing}
+    USER --> API
+    API --> GRAPH
 
-    ROUTER → JOB[Job Agent]
-    ROUTER → RESUME[Resume Agent]
-    ROUTER → RAG[RAG Agent]
+    GRAPH --> INTENT["Intent Classifier (Local GPU LLM)"]
+    INTENT --> ROUTER{Deterministic Routing}
 
-    RAG → BM25[BM25 Retrieval]
-    BM25 → CONF{Confidence Threshold Met?}
+    ROUTER --> JOB[Job Agent]
+    ROUTER --> RESUME[Resume Agent]
+    ROUTER --> RAG[RAG Agent]
 
-    CONF →|Yes| LOCAL_FUSION[Local LLM Fusion]
-    CONF →|No| EMB[HF Embedding API]
-    EMB → RERANK[Semantic Rerank]
-    RERANK → HF_REASON[HF LLM Deep Reasoning]
+    RAG --> BM25[BM25 Retrieval]
+    BM25 --> CONF{Confidence Threshold Met?}
 
-    JOB → VALIDATOR
-    RESUME → VALIDATOR
-    LOCAL_FUSION → VALIDATOR
-    HF_REASON → VALIDATOR
+    CONF -->|Yes| LOCAL_FUSION[Local LLM Fusion]
+    CONF -->|No| EMB[HF Embedding API]
+    EMB --> RERANK[Semantic Rerank]
+    RERANK --> HF_REASON[HF LLM Deep Reasoning]
 
-    VALIDATOR → LOG[Trace Logger + SQLite Checkpoint]
-    LOG → END_SUCCESS[END_SUCCESS]
+    JOB --> VALIDATOR[Validator]
+    RESUME --> VALIDATOR
+    LOCAL_FUSION --> VALIDATOR
+    HF_REASON --> VALIDATOR
 
-    VALIDATOR → END_FAILURE[END_FAILURE]
+    VALIDATOR --> LOG["Trace Logger + SQLite Checkpoint"]
+    LOG --> END_SUCCESS([END_SUCCESS])
 
+    VALIDATOR --> END_FAILURE([END_FAILURE])
 
-LLM Strategy
-Tier 1 – Local GPU LLM (llama.cpp)
 
 Used for:
 

@@ -1,6 +1,6 @@
 sequenceDiagram
-
-    participant U as User
+    autonumber
+    actor U as User
     participant API as FastAPI
     participant G as LangGraph
     participant L as Local LLM
@@ -10,8 +10,12 @@ sequenceDiagram
 
     U->>API: Send Request
     API->>G: Initialize State
-    G->>L: Intent Classification
-    L-->>G: Intent Result
+    
+    rect rgb(240, 240, 240)
+        Note over G,L: Classification Phase
+        G->>L: Intent Classification
+        L-->>G: Intent Result
+    end
 
     G->>BM: Retrieve Top Documents
     BM-->>G: Top-K Results
