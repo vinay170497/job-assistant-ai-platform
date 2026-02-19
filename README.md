@@ -29,39 +29,6 @@ System is fully testable with pytest.
 
 Architecture Overview
 
-flowchart TD
-
-    USER["User Request"]
-    API["FastAPI Layer"]
-    GRAPH["LangGraph StateGraph Orchestrator"]
-
-    USER --> API
-    API --> GRAPH
-
-    GRAPH --> INTENT["Intent Classifier (Local GPU LLM)"]
-    INTENT --> ROUTER{Deterministic Routing}
-
-    ROUTER --> JOB[Job Agent]
-    ROUTER --> RESUME[Resume Agent]
-    ROUTER --> RAG[RAG Agent]
-
-    RAG --> BM25[BM25 Retrieval]
-    BM25 --> CONF{Confidence Threshold Met?}
-
-    CONF -->|Yes| LOCAL_FUSION[Local LLM Fusion]
-    CONF -->|No| EMB[HF Embedding API]
-    EMB --> RERANK[Semantic Rerank]
-    RERANK --> HF_REASON[HF LLM Deep Reasoning]
-
-    JOB --> VALIDATOR[Validator]
-    RESUME --> VALIDATOR
-    LOCAL_FUSION --> VALIDATOR
-    HF_REASON --> VALIDATOR
-
-    VALIDATOR --> LOG["Trace Logger + SQLite Checkpoint"]
-    LOG --> END_SUCCESS([END_SUCCESS])
-
-    VALIDATOR --> END_FAILURE([END_FAILURE])
 
 
 Used for:
