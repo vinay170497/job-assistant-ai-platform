@@ -1,0 +1,40 @@
+# Core Orchestration
+langgraph
+langchain-core
+
+# API Layer
+fastapi
+uvicorn
+
+# Local LLM (GPU-first via llama.cpp)
+llama-cpp-python
+
+# HuggingFace API Integration
+huggingface-hub
+requests
+
+# Semantic Intent + Embeddings (CPU lightweight)
+sentence-transformers
+torch
+
+# Retrieval (Primary BM25)
+rank-bm25
+numpy
+pandas
+
+# Data & Persistence
+pydantic
+python-dotenv
+
+# Logging & Utilities
+typing-extensions
+
+# Testing
+pytest
+pytest-asyncio
+
+# Performance & Monitoring (Future-proof)
+tqdm
+
+# Optional (for structured JSON logging later)
+orjson

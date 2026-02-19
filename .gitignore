@@ -1,2 +1,20 @@
 # Ignore SQLite trace database
 data/*.sqlite
+# Virtual Environment (Matches your 'venv' folder)
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Local Environment Variables (Keep .env.example, ignore .env)
+.env
+
+# Data and Logs
+data/
+*.log
+
+# Build files
+dist/
+build/
+*.egg-info/
