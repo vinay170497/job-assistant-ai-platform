@@ -1,0 +1,44 @@
+[project]
+name = "Job-Assistant-AI-Platform"
+version = "0.1.0"
+description = "Hybrid semantic + lexical intent routing engine for Job Assistant AI"
+authors = [
+    { name = "Vinay Rai" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "langgraph>=0.2.0",
+    "sentence-transformers>=2.6.0",
+    "rank-bm25>=0.2.2",
+    "torch>=2.1.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.0.0",
+    "isort>=5.13.0",
+    "mypy>=1.8.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true
