@@ -6,6 +6,7 @@ class ExecutionStatus(str, Enum):
     ACTIVE = "ACTIVE"
     ERROR = "ERROR"
     COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
     ARBITRATION_REQUIRED = "ARBITRATION_REQUIRED"
 
 

@@ -7,7 +7,7 @@ from app.core.errors import ErrorType
 arbitrator = CrossEncoderArbitrator()
 
 
-def arbitration_node(state):
+def arbitration_node(state: dict) -> dict:
 
     user_input = state.get("user_input")
     candidates = state.get("disambiguation_options", [])
