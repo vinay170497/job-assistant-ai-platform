@@ -7,7 +7,7 @@ router = HybridRouter()
 #registry = IntentRegistry()
 
 
-def classify_intent_node(state: AgentState) -> AgentState:
+def classify_intent_node(state):
 
     user_input = state.get("user_input", "").strip()
 
@@ -21,18 +21,23 @@ def classify_intent_node(state: AgentState) -> AgentState:
 
     # ---- Ambiguity ----
     if band == "AMBIGUOUS":
-        state["status"] = ExecutionStatus.ERROR
-        state["error_type"] = ErrorType.DISAMBIGUATION_REQUIRED
+        state["status"] = ExecutionStatus.ARBITRATION_REQUIRED
         state["disambiguation_options"] = disambiguation
         return state
 
-    # ---- Out of Scope ----
+    # ---- Low confidence → Arbitration ----
+    if band == "LOW":
+        state["status"] = ExecutionStatus.ARBITRATION_REQUIRED
+        state["disambiguation_options"] = disambiguation or [intent]
+        return state
+
+    # ---- Out of scope ----
     if band == "OOS" or intent is None:
         state["status"] = ExecutionStatus.ERROR
         state["error_type"] = ErrorType.OUT_OF_SCOPE
         return state
 
-    # ---- Valid Intent ----
+    # ---- High or Medium confidence ----
     state["intent"] = intent
     state["intent_confidence"] = score
     state["confidence_band"] = band

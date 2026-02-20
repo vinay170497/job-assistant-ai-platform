@@ -1,0 +1,65 @@
+intents:
+
+  - name: resume_help
+    description: Assistance with resume writing, resume editing, resume review, resume formatting, CV building, CV improvement, resume optimization for ATS, and resume feedback.
+    examples:
+      - improve my resume
+      - review my CV
+      - resume feedback
+      - build resume from scratch
+      - ATS optimize my resume
+      - correct resume grammar
+      - enhance resume bullet points
+      - rewrite my CV
+      - format resume professionally
+      - make my resume stronger
+
+  - name: job_search
+    description: Help with finding job openings, job listings, hiring opportunities, company vacancies, internship search, and job applications.
+    examples:
+      - find ML jobs
+      - job openings near me
+      - hiring data scientist
+      - internships in AI
+      - companies hiring Python developer
+      - apply for jobs
+      - remote job openings
+      - fresher job openings
+      - search software jobs
+      - current openings in data science
+
+  - name: career_guidance
+    description: Career advice, career planning, skill roadmap guidance, career transition support, growth strategy, and professional development advice.
+    examples:
+      - career path advice
+      - how to switch to AI
+      - growth roadmap
+      - what skills should I learn
+      - career transition to data science
+      - how to become ML engineer
+      - long term career planning
+      - promotion strategy advice
+      - upskilling recommendations
+      - career direction confusion
+
+  - name: knowledge_query
+    description: General conceptual or theoretical questions about technical topics such as machine learning, artificial intelligence, programming, data science, or software concepts.
+    examples:
+      - how does machine learning work
+      - explain neural networks
+      - what is supervised learning
+      - difference between AI and ML
+      - how does gradient descent work
+      - explain transformers model
+      - what is overfitting
+      - explain python decorators
+      - how does backpropagation work
+
+  - name: out_of_scope
+    description: Queries unrelated to resume help, job search, career guidance, or technical knowledge explanation.
+    examples:
+      - tell me a joke
+      - weather today
+      - cooking recipes
+      - stock market price
+      - political news

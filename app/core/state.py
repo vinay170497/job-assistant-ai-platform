@@ -6,6 +6,7 @@ class ExecutionStatus(str, Enum):
     ACTIVE = "ACTIVE"
     ERROR = "ERROR"
     COMPLETED = "COMPLETED"
+    ARBITRATION_REQUIRED = "ARBITRATION_REQUIRED"
 
 
 class AgentState(TypedDict, total=False):

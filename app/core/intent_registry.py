@@ -1,74 +1,46 @@
-from sentence_transformers import SentenceTransformer, util
-import torch
+import yaml
+from pathlib import Path
 
 
 class IntentRegistry:
 
-    def __init__(self):
-        self.model = SentenceTransformer("all-MiniLM-L6-v2")
+    def __init__(self, config_path: str = "app/config/intents.yaml"):
+        self.config_path = Path(config_path)
+        self.intent_definitions = self._load_intents()
 
-        self.intent_definitions = {
-            "job_search": [
-                "find jobs",
-                "python developer openings",
-                "current job vacancies",
-                "hiring in data science",
-                "software engineer roles",
-                "job opportunities near me",
-                "backend developer job",
-                "IT company hiring",
-                "search for employment",
-                "open positions in tech"
-            ],
-            "resume_help": [
-                "improve my resume",
-                "resume review",
-                "CV writing help",
-                "optimize my CV",
-                "resume formatting advice",
-                "how to write resume",
-                "resume feedback"
-            ],
-            "knowledge_query": [
-                "how does machine learning work",
-                "explain neural networks",
-                "what is data science",
-                "describe artificial intelligence",
-                "how to learn python",
-                "tell me about deep learning"
-            ]
-        }
+    # --------------------------------------------------
+    # Load YAML
+    # --------------------------------------------------
+    def _load_intents(self):
 
-        self.intent_embeddings = self._encode_intents()
+        with open(self.config_path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
 
-    def _encode_intents(self):
-        encoded = {}
-        for intent, phrases in self.intent_definitions.items():
-            embeddings = self.model.encode(phrases, convert_to_tensor=True)
-            encoded[intent] = embeddings
-        return encoded
+        intents = {}
 
-    def classify(self, text: str):
-        text_embedding = self.model.encode(text, convert_to_tensor=True)
+        for intent in data.get("intents", []):
+            intents[intent["name"]] = {
+                "description": intent.get("description", ""),
+                "examples": intent.get("examples", [])
+            }
 
-        scores = {}
+        return intents
 
-        for intent, embeddings in self.intent_embeddings.items():
-            similarities = util.cos_sim(text_embedding, embeddings)
-            max_score = torch.max(similarities).item()
-            scores[intent] = max_score
+    # --------------------------------------------------
+    # Public API (USED BY ROUTER)
+    # --------------------------------------------------
+    def get_all_intent_names(self):
+        return list(self.intent_definitions.keys())
 
-        sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    def get_description(self, intent_name: str):
+        return self.intent_definitions[intent_name]["description"]
 
-        top_intent, top_score = sorted_scores[0]
+    def get_examples(self, intent_name: str):
+        return self.intent_definitions[intent_name]["examples"]
 
-        # Disambiguation if very close
-        if len(sorted_scores) > 1:
-            second_score = sorted_scores[1][1]
-            if abs(top_score - second_score) < 0.015:
-                return None, 0.0, [i[0] for i in sorted_scores[:2]]
-
-        if top_score < 0.55:
-            return None, top_score, []
-
-        return top_intent, top_score, []
+    def get_intent_document(self, intent_name: str):
+        """
+        Returns enriched text used for embedding
+        """
+        data = self.intent_definitions[intent_name]
+        return data["description"] + " " + " ".join(data["examples"])
