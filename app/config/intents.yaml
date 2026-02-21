@@ -1,65 +1,213 @@
 intents:
 
   - name: resume_help
-    description: Assistance with resume writing, resume editing, resume review, resume formatting, CV building, CV improvement, resume optimization for ATS, and resume feedback.
+    description: >
+      Assistance with resume writing, CV creation, resume editing, resume review,
+      resume formatting, ATS optimization, resume rewriting, professional profile
+      enhancement, portfolio building, LinkedIn profile optimization, cover letter
+      drafting, and job application documents for any industry, domain, role, or experience level.
+
     examples:
+      # General
       - improve my resume
       - review my CV
       - resume feedback
       - build resume from scratch
       - ATS optimize my resume
-      - correct resume grammar
-      - enhance resume bullet points
       - rewrite my CV
       - format resume professionally
+      - enhance resume bullet points
       - make my resume stronger
+      - create resume for fresher
+
+      # Industry Specific
+      - resume for banking job
+      - resume for government job
+      - resume for software developer
+      - resume for marketing role
+      - resume for sales executive
+      - resume for HR position
+      - resume for nurse
+      - resume for teacher
+      - resume for mechanical engineer
+      - resume for civil engineer
+
+      # Senior / Management
+      - executive resume help
+      - resume for manager position
+      - leadership resume rewrite
+
+      # Additional Assets
+      - write cover letter for job
+      - optimize LinkedIn profile
+      - build job portfolio
+      - create professional summary
+
 
   - name: job_search
-    description: Help with finding job openings, job listings, hiring opportunities, company vacancies, internship search, and job applications.
+    description: >
+      Help with searching, discovering, and applying for jobs, internships,
+      apprenticeships, government jobs, private sector jobs, public sector jobs,
+      startup roles, corporate positions, freelance gigs, remote jobs,
+      part-time jobs, full-time jobs, contract roles, and opportunities across
+      any industry, sector, domain, product, or service category.
+
     examples:
-      - find ML jobs
-      - job openings near me
-      - hiring data scientist
-      - internships in AI
-      - companies hiring Python developer
-      - apply for jobs
-      - remote job openings
+      # Generic
+      - jobs near me
+      - part time jobs
+      - full time jobs
+      - remote jobs
+      - latest job openings
+      - vacancies in mumbai
+      - hiring now
+      - urgent hiring
+
+      # Banking & Finance
+      - bank jobs in mumbai
+      - finance jobs in delhi
+      - accountant vacancies
+      - RBI recruitment
+      - bank PO jobs
+
+      # Government
+      - government jobs in india
+      - railway jobs
+      - SSC recruitment
+      - PSU jobs
+      - public sector openings
+
+      # IT & Technology
+      - software developer jobs
+      - AI jobs
+      - data science openings
+      - cybersecurity roles
+      - cloud engineer vacancies
+
+      # Healthcare
+      - nurse jobs in bangalore
+      - hospital openings
+      - pharmacist jobs
+
+      # Education
+      - teaching jobs
+      - professor vacancies
+      - school teacher jobs
+
+      # Sales & Marketing
+      - sales executive jobs
+      - marketing manager openings
+      - business development roles
+
+      # Manufacturing & Core
+      - mechanical engineer jobs
+      - civil engineering openings
+      - production supervisor jobs
+
+      # Freshers & Internship
       - fresher job openings
-      - search software jobs
-      - current openings in data science
+      - internships in finance
+      - summer internship programs
+
+      # International
+      - jobs abroad
+      - gulf jobs
+      - work visa jobs
+
+      # Company Specific
+      - jobs at TCS
+      - openings in Infosys
+      - hiring in HDFC bank
+
 
   - name: career_guidance
-    description: Career advice, career planning, skill roadmap guidance, career transition support, growth strategy, and professional development advice.
+    description: >
+      Career advice, professional growth strategy, skill development roadmap,
+      career transition planning, interview preparation guidance, promotion strategy,
+      salary negotiation advice, industry selection guidance, domain switching support,
+      and long-term career planning across any profession, industry, or role.
+
     examples:
+      # Planning
       - career path advice
-      - how to switch to AI
-      - growth roadmap
-      - what skills should I learn
-      - career transition to data science
-      - how to become ML engineer
       - long term career planning
-      - promotion strategy advice
-      - upskilling recommendations
+      - growth roadmap
       - career direction confusion
+      - which field should I choose
+
+      # Switching Domains
+      - how to switch to banking
+      - career transition to data science
+      - move from sales to marketing
+      - switch from mechanical to IT
+      - career change after 5 years experience
+
+      # Skill Building
+      - what skills should I learn
+      - upskilling recommendations
+      - certifications for finance jobs
+      - skills needed for government jobs
+      - how to become software engineer
+
+      # Interview & Growth
+      - interview preparation tips
+      - promotion strategy advice
+      - salary negotiation help
+      - how to grow in corporate career
+      - how to crack bank exams
+
 
   - name: knowledge_query
-    description: General conceptual or theoretical questions about technical topics such as machine learning, artificial intelligence, programming, data science, or software concepts.
+    description: >
+      Conceptual, procedural, or informational questions related to jobs,
+      careers, recruitment processes, hiring systems, resume standards,
+      interview processes, industry requirements, professional skills,
+      domain knowledge, certifications, and employment-related regulations
+      across any sector.
+
     examples:
-      - how does machine learning work
-      - explain neural networks
-      - what is supervised learning
-      - difference between AI and ML
-      - how does gradient descent work
-      - explain transformers model
-      - what is overfitting
-      - explain python decorators
-      - how does backpropagation work
+      # Recruitment Process
+      - how does campus placement work
+      - what is ATS system
+      - how does hiring process work
+      - how do recruiters shortlist resumes
+      - what is background verification
+
+      # Industry Knowledge
+      - what does a data analyst do
+      - roles and responsibilities of HR manager
+      - what does a bank PO do
+      - job role of civil engineer
+      - what is investment banking
+
+      # Interview Concepts
+      - what are behavioral interviews
+      - explain STAR method
+      - what is technical interview
+      - how does case interview work
+
+      # Career Certifications
+      - best certification for finance jobs
+      - is MBA required for marketing
+      - what exams for government jobs
+
+      # Employment Policies
+      - what is probation period
+      - what is notice period
+      - what is employment bond
+      - difference between contract and full time job
+
 
   - name: out_of_scope
-    description: Queries unrelated to resume help, job search, career guidance, or technical knowledge explanation.
+    description: >
+      Queries that are unrelated to employment, careers, jobs, professional growth,
+      hiring, resume building, or career knowledge.
+
     examples:
       - tell me a joke
       - weather today
       - cooking recipes
-      - stock market price
       - political news
+      - movie recommendations
+      - cricket score
+      - stock market price

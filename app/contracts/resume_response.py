@@ -1,5 +1,10 @@
-from app.contracts.base_response import BaseAgentResponse
+from pydantic import BaseModel
+from typing import Optional
 
 
-class ResumeResponse(BaseAgentResponse):
-    improvement_suggestions: list[str] = []
+class ResumeResponse(BaseModel):
+    intent: str
+    success: bool
+    message: str
+    confidence: float
+    suggestions: Optional[str] = None

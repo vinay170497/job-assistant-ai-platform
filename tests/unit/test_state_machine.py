@@ -20,7 +20,7 @@ def test_all_cases():
     for case in test_cases:
         result = graph.invoke({
             "request_id": "test",
-            "user_input": case["input"],
+            "query": case["input"],
             "status": "ACTIVE"
         })
 

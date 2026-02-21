@@ -11,7 +11,7 @@ class CrossEncoderArbitrator:
         self.registry = IntentRegistry()
         self.arbitration_threshold = 0.55  # Slightly stricter
 
-    def arbitrate(self, user_input: str, candidate_intents: list):
+    def arbitrate(self, query: str, candidate_intents: list):
 
         if not candidate_intents:
             return None, 0.0
@@ -20,7 +20,7 @@ class CrossEncoderArbitrator:
 
         for intent in candidate_intents:
             description = self.registry.get_description(intent)
-            pairs.append((user_input, description))
+            pairs.append((query, description))
 
         scores = self.model.predict(pairs)
 

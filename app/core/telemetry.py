@@ -5,16 +5,18 @@ from pathlib import Path
 
 class RoutingTelemetry:
 
-    def __init__(self, log_path: str = "logs/routing_logs.jsonl"):
-        self.log_path = Path(log_path)
-        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+    def __init__(self, file_path="routing_logs.jsonl"):
+        self.file_path = file_path
 
-    def log(self, payload: dict):
+    def log(self, data: dict):
 
-        record = {
+        log_entry = {
             "timestamp": datetime.utcnow().isoformat(),
-            **payload
+            **data
         }
 
-        with open(self.log_path, "a", encoding="utf-8") as f:
-            f.write(json.dumps(record) + "\n")
+        try:
+            with open(self.file_path, "a", encoding="utf-8") as f:
+                f.write(json.dumps(log_entry) + "\n")
+        except Exception:
+            pass

@@ -1,13 +1,17 @@
 from pydantic import BaseModel
-from typing import List
-from app.contracts.base_response import BaseAgentResponse
+from typing import Optional, List
 
 
 class JobResult(BaseModel):
     title: str
-    location: str
-    company: str
+    location: Optional[str]
+    company: Optional[str]
+    apply_url: Optional[str]
 
 
-class JobSearchResponse(BaseAgentResponse):
-    jobs: List[JobResult] = []
+class JobSearchResponse(BaseModel):
+    intent: str
+    success: bool
+    message: str
+    confidence: float
+    jobs: List[JobResult]

@@ -9,7 +9,7 @@ arbitrator = CrossEncoderArbitrator()
 
 def arbitration_node(state: dict) -> dict:
 
-    user_input = state.get("user_input")
+    query = state.get("query")
     candidates = state.get("disambiguation_options", [])
 
     # --------------------------------------------------
@@ -34,7 +34,7 @@ def arbitration_node(state: dict) -> dict:
     # TRUE Arbitration (multiple candidates)
     # --------------------------------------------------
     intent, confidence = arbitrator.arbitrate(
-        user_input,
+        query,
         candidates
     )
 

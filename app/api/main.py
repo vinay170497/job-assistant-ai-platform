@@ -101,9 +101,21 @@ async def invoke(
     request: InvokeRequest,
     graph=Depends(get_graph)
 ):
+    # Normalize input state explicitly
+    initial_state = {
+        "request_id": request.request_id,
+        "query": request.query.strip(),
+        "intent": None,
+        "intent_confidence": None,
+        "status": None,
+        "agent_output": None,
+        "error_type": None,
+        "error_message": None,
+    }
+
     result = await run_in_threadpool(
         graph.invoke,
-        request.model_dump()
+        initial_state
     )
 
     status_value = (

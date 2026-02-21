@@ -1,15 +1,15 @@
 from app.contracts.resume_response import ResumeResponse
 
 
-def handle_resume_help(user_input: str):
+class ResumeService:
 
-    return ResumeResponse(
-        intent="resume_help",
-        success=True,
-        message="Resume analysis complete",
-        confidence=0.82,
-        improvement_suggestions=[
-            "Add measurable achievements",
-            "Use action verbs",
-        ]
-    )
+    def handle(self, query: str) -> ResumeResponse:
+
+        # Mock logic for now
+        return ResumeResponse(
+            intent="resume_help",
+            success=True,
+            message="Resume suggestions generated",
+            confidence=0.88,
+            suggestions="Consider adding quantified achievements and relevant keywords."
+        )

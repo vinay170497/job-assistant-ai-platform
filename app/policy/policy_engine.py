@@ -1,20 +1,19 @@
-class PolicyEngine:
+from app.core.state import ExecutionStatus
 
-    MAX_INPUT_LENGTH = 1500
+
+class PolicyEngine:
 
     @staticmethod
     def validate(state: dict) -> dict:
+        query = state.get("query")
 
-        user_input = state.get("user_input", "")
-
-        if len(user_input) > PolicyEngine.MAX_INPUT_LENGTH:
-            state["status"] = "ERROR"
-            state["error_message"] = "Input too long"
-            return state
-
-        if "hack" in user_input.lower():
-            state["status"] = "ERROR"
-            state["error_message"] = "Policy violation detected"
+        if query is None or not isinstance(query, str) or not query.strip():
+            state["status"] = ExecutionStatus.ERROR
+            state["error_type"] = "INVALID_INPUT"
+            state["error_message"] = "Input cannot be empty."
+            state["intent"] = None
+            state["intent_confidence"] = None
+            state["agent_output"] = None
             return state
 
         return state

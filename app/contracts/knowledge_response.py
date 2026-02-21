@@ -1,5 +1,9 @@
-from app.contracts.base_response import BaseAgentResponse
+from pydantic import BaseModel
 
 
-class KnowledgeResponse(BaseAgentResponse):
+class KnowledgeResponse(BaseModel):
+    intent: str
+    success: bool
+    message: str
+    confidence: float
     answer: str

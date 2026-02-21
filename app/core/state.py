@@ -13,7 +13,7 @@ class ExecutionStatus(str, Enum):
 class AgentState(TypedDict, total=False):
     # Core
     request_id: str
-    user_input: str
+    query: str
     status: ExecutionStatus
     next_action: Optional[str]
 
@@ -30,7 +30,7 @@ class AgentState(TypedDict, total=False):
     error_message: Optional[str]
 
 
-def create_initial_state(request_id: str, user_input: str) -> AgentState:
+def create_initial_state(request_id: str, query: str) -> AgentState:
     """
     Creates a fully initialized and schema-consistent state.
     This guarantees all expected keys exist from the start.
@@ -39,7 +39,7 @@ def create_initial_state(request_id: str, user_input: str) -> AgentState:
     return {
         # Core
         "request_id": request_id,
-        "user_input": user_input,
+        "query": query,
         "status": ExecutionStatus.ACTIVE,
         "next_action": None,
 

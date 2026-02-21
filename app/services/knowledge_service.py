@@ -1,12 +1,15 @@
 from app.contracts.knowledge_response import KnowledgeResponse
 
 
-def handle_knowledge_query(user_input: str):
+class KnowledgeService:
 
-    return KnowledgeResponse(
-        intent="knowledge_query",
-        success=True,
-        message="Knowledge response generated",
-        confidence=0.88,
-        answer="Machine learning is a subset of AI..."
-    )
+    def handle(self, query: str) -> KnowledgeResponse:
+
+        # Mock RAG response
+        return KnowledgeResponse(
+            intent="knowledge_query",
+            success=True,
+            message="Knowledge retrieved successfully",
+            confidence=0.90,
+            answer="Here is the information related to your query."
+        )

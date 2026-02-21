@@ -4,6 +4,7 @@ from app.graph.nodes.intent import classify_intent_node
 from app.graph.nodes.arbitration import arbitration_node
 from app.graph.nodes.execution_node import execution_node
 from app.policy.policy_engine import PolicyEngine
+from app.graph.nodes.guardrail_node import guardrail_node
 
 
 def normalize_state_before_exit(state: AgentState) -> AgentState:
@@ -42,6 +43,7 @@ def build_graph():
     builder.add_node("execution", execution_node)
     builder.add_node("finalize", normalize_state_before_exit)
     builder.add_node("policy_check", policy_node)
+    builder.add_node("guardrail_node", guardrail_node)
 
     # -------------------------
     # Entry
@@ -50,6 +52,7 @@ def build_graph():
     
     builder.set_entry_point("policy_check")
     builder.add_edge("policy_check", "intent_classifier")
+    builder.add_edge("intent_classifier", "guardrail_node")
     
     # -------------------------
     # Conditional Routing
@@ -59,12 +62,13 @@ def build_graph():
     lambda state: (
         "arbitration"
         if state.get("status") == ExecutionStatus.ARBITRATION_REQUIRED
-        else "execution"
+        else "guardrail_node"
     )
 )
 
     # After arbitration → execution → finalize
-    builder.add_edge("arbitration", "execution")
+    builder.add_edge("arbitration", "guardrail_node")
+    builder.add_edge("guardrail_node", "execution")
     builder.add_edge("execution", "finalize")
 
     # Final exit
